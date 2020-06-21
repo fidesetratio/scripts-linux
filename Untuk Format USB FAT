@@ -1,0 +1,78 @@
+https://www.instructables.com/id/Format-USB-Flash-Drive-to-FATFAT16-not-FAT32/
+
+Put your USB on.
+
+Press Window+R to open Run.
+
+DISKPART ↵
+
+DISKPART> list disk ↵
+
+Disk ### Status Size Free Dyn Gpt
+
+-------- ---------- ------- ------- --- ---
+
+Disk 0 Online 40 GB 0 B
+
+Disk 1 Online 7538 MB 0 B
+
+#Your USB is Disk 1 (7538 MB) ,select it:
+
+DISKPART> select disk 1 ↵
+
+Disk 1 is now the selected disk.
+
+DISKPART> list part
+
+Partition ### Type Size Offset
+
+------------- ---------------- ------- -------
+
+Partition 1 Primary 500 MB 1024 KB
+
+DISKPART> clean ↵
+
+DiskPart succeeded in cleaning the disk.
+
+# resize USB to 4000MB
+
+DISKPART> create part primary size=4000
+
+DiskPart succeeded in creating the specified partition.
+
+DISKPART> active ↵
+
+DiskPart marked the current partition as active.
+
+Close window then Format again. You will see FAT option there.
+
+
+
+
+Step 3: Change Back to Default Size.
+
+
+
+Now your USB is 3.9GB. To change it back to original size do this.
+
+Open DISKPART
+
+DISKPART> list disk ↵
+
+DISKPART> select disk 1 ↵
+
+DISKPART> list partition ↵
+
+DISKPART> clean ↵
+
+DISKPART> list partition ↵
+
+DISKPART> create partition primary ↵
+
+DISKPART> list partition ↵
+
+DISKPART> format fs=fat32 quick ↵
+
+DISKPART> list partition ↵
+
+exit ↵
